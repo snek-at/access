@@ -1,7 +1,11 @@
 import type { HeadFC, PageProps } from "gatsby";
 import * as React from "react";
 
-import { setTokenPair, sq } from "@snek-functions/origin/client";
+import {
+  isSession,
+  setTokenPair,
+  sq,
+} from "@snek-functions/origin/client";
 
 import { Auth } from "../components/organisms/Auth/index.js";
 
@@ -156,8 +160,6 @@ export const useAuthHandler = () => {
 
   const isSignedIn = me.users.length > 0;
 
-  console.log("isSignedIn", isSignedIn);
-
   React.useEffect(() => {
     const fetchPublicResource = async () => {
       if (!resourceId) {
@@ -207,11 +209,16 @@ export const useAuthHandler = () => {
         });
 
         if (!errors && data) {
-          console.log("signed in data", data);
-
           if (data.signInUrl) {
+            // isSession should be the same as the one used in the resource
+
+            const access = {
+              ...data.tokenPair,
+              isSession: isSession(),
+            };
+
             window.location.replace(
-              `${data.signInUrl}?access=${JSON.stringify(data.tokenPair)}`
+              `${data.signInUrl}?access=${JSON.stringify(access)}`
             );
           }
         } else {
