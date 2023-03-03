@@ -1,0 +1,54 @@
+{
+  "name": "snek-access",
+  "version": "0.0.1",
+  "private": true,
+  "description": "snek-access",
+  "author": "Nico Schett",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop -H 0.0.0.0",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "generate-origin": "yarn snek-query generate https://services.snek.at/origin/graphql --output ./src/api"
+  },
+  "dependencies": {
+    "@chakra-ui/gatsby-plugin": "^3.1.1",
+    "@chakra-ui/icons": "^2.0.17",
+    "@chakra-ui/pro-theme": "^0.0.64",
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@snek-functions/origin": "*",
+    "framer-motion": "^10.0.0",
+    "gatsby": "^5.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.2",
+    "react-icons": "^4.7.1",
+    "snek-query": "^0.0.57"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@storybook/addon-actions": "^6.5.16",
+    "@storybook/addon-essentials": "^6.5.16",
+    "@storybook/addon-interactions": "^6.5.16",
+    "@storybook/addon-links": "^6.5.16",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16",
+    "@storybook/react": "^6.5.16",
+    "@storybook/testing-library": "^0.0.13",
+    "@types/node": "^18.14.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "babel-loader": "^8.3.0",
+    "typescript": "^4.9.5"
+  },
+  "packageManager": "yarn@3.4.1"
+}
