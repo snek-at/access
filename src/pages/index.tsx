@@ -23,12 +23,9 @@ export const Page: React.FC<PageProps> = () => {
   const { isLoading, isSignedIn, me, setMe, ongoingAuthentication } =
     useAuthHandler();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Auth
+      isLoading={isLoading}
       snekAccessResourceId="7f2734cf-9283-4568-94d1-8903354ca382"
       isSignedIn={isSignedIn}
       me={me}

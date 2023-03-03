@@ -68,3 +68,8 @@ OngoingAuthenticationWithoutSignin.args = {
     return false;
   },
 };
+
+export const IsLoading: Story<ComponentProps> = Template.bind({});
+IsLoading.args = {
+  isLoading: true,
+};

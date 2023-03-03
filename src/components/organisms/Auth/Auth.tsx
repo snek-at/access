@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   CardBody,
+  Center,
   Checkbox,
   Container,
   FormControl,
@@ -25,6 +26,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { isFloat32Array } from "util/types";
 
 import { Logo } from "../../atoms/Logo";
 import { PasswordField } from "../../atoms/PasswordField";
@@ -33,6 +35,7 @@ import { SignInForm } from "../../molecules/SignInForm";
 export interface AuthProps {
   isSignedIn: boolean;
   snekAccessResourceId: string;
+  isLoading: boolean;
   me?: {
     users: Array<{
       user: {
@@ -119,28 +122,19 @@ export const Auth: React.FC<AuthProps> = (props) => {
         );
       }
     } else {
-      return (
+      if (resource) {
         <Alert status="info" borderRadius="md" mb={4} py={2} px={4}>
           <Box mr={2}>
             <Spinner size="sm" />
           </Box>
           <Text fontSize="sm">
-            {resource ? (
-              <>
-                You are currently authenticating for{" "}
-                <strong>{resource.name}</strong>. Please wait until the
-                authentication is complete, and you will be automatically
-                redirected to the resource.{" "}
-              </>
-            ) : (
-              <>
-                You are currently authenticating. Please wait until the
-                authentication is complete.
-              </>
-            )}
+            You are currently authenticating for{" "}
+            <strong>{resource.name}</strong>. Please wait until the
+            authentication is complete, and you will be automatically redirected
+            to the resource.
           </Text>
-        </Alert>
-      );
+        </Alert>;
+      }
     }
   };
 
@@ -179,7 +173,7 @@ export const Auth: React.FC<AuthProps> = (props) => {
             </HStack>
           </Stack>
         </Stack>
-        {authenticationAlert()}
+        {!props.isLoading && authenticationAlert()}
         <Box
           py={{ base: "0", sm: "8" }}
           px={{ base: "4", sm: "10" }}
@@ -187,87 +181,95 @@ export const Auth: React.FC<AuthProps> = (props) => {
           boxShadow={{ base: "none", sm: "md" }}
           borderRadius={{ base: "none", sm: "xl" }}
         >
-          {props.isSignedIn ? (
-            <Stack spacing="6" maxH="lg">
-              <Text>
-                You are currently signed in as:{" "}
-                <strong>{snekAccessUser?.user.username}</strong>
-              </Text>
-              <Stack spacing="4">
-                {props.me?.users.map(({ user }) => (
-                  <Card size="sm">
-                    <CardBody>
-                      <HStack>
-                        <Image
-                          src="https://bit.ly/sage-adebayo"
-                          alt="Segun Adebayo"
-                          boxSize="14"
-                          borderRadius="full"
-                        />
-                        <HStack justifyContent={"space-between"} w="full">
-                          <Stack spacing="0">
-                            <Text>
-                              {user.username} ({user.primaryEmail})
-                            </Text>
-
-                            <Text fontSize="sm" color="muted">
-                              On: {user.resource.name}
-                            </Text>
-                          </Stack>
-                          <Menu isLazy>
-                            <MenuButton
-                              as={IconButton}
-                              aria-label="Options"
-                              icon={<BsThreeDotsVertical />}
-                              variant="outline"
-                              size="sm"
-                            />
-                            <MenuList>
-                              <MenuItem icon={<ExternalLinkIcon />}>
-                                Open resource
-                              </MenuItem>
-                              <MenuItem
-                                color="red.500"
-                                onClick={() => {
-                                  props.onSignOut(user.resource.id);
-                                  setSignInResult(null);
-                                }}
-                              >
-                                Sign out
-                              </MenuItem>
-                            </MenuList>
-                          </Menu>
-                        </HStack>
-                      </HStack>
-                    </CardBody>
-                  </Card>
-                ))}
-              </Stack>
-              <Stack spacing="6">
-                <Button
-                  colorScheme="red"
-                  onClick={() => {
-                    props.onSignOut();
-                    setSignInResult(null);
-                  }}
-                >
-                  Sign out all
-                </Button>
-              </Stack>
-            </Stack>
+          {props.isLoading ? (
+            <Center>
+              <Spinner />
+            </Center>
           ) : (
-            <SignInForm
-              onSubmit={async (creds) => {
-                const success = await props.onSignIn(
-                  creds.login,
-                  creds.password,
-                  props.snekAccessResourceId,
-                  creds.isSession
-                );
+            <>
+              {props.isSignedIn ? (
+                <Stack spacing="6" maxH="lg">
+                  <Text>
+                    You are currently signed in as:{" "}
+                    <strong>{snekAccessUser?.user.username}</strong>
+                  </Text>
+                  <Stack spacing="4">
+                    {props.me?.users.map(({ user }) => (
+                      <Card size="sm">
+                        <CardBody>
+                          <HStack>
+                            <Image
+                              src="https://bit.ly/sage-adebayo"
+                              alt="Segun Adebayo"
+                              boxSize="14"
+                              borderRadius="full"
+                            />
+                            <HStack justifyContent={"space-between"} w="full">
+                              <Stack spacing="0">
+                                <Text>
+                                  {user.username} ({user.primaryEmail})
+                                </Text>
 
-                setSignInResult(success ? "success" : "failure");
-              }}
-            />
+                                <Text fontSize="sm" color="muted">
+                                  On: {user.resource.name}
+                                </Text>
+                              </Stack>
+                              <Menu isLazy>
+                                <MenuButton
+                                  as={IconButton}
+                                  aria-label="Options"
+                                  icon={<BsThreeDotsVertical />}
+                                  variant="outline"
+                                  size="sm"
+                                />
+                                <MenuList>
+                                  <MenuItem icon={<ExternalLinkIcon />}>
+                                    Open resource
+                                  </MenuItem>
+                                  <MenuItem
+                                    color="red.500"
+                                    onClick={() => {
+                                      props.onSignOut(user.resource.id);
+                                      setSignInResult(null);
+                                    }}
+                                  >
+                                    Sign out
+                                  </MenuItem>
+                                </MenuList>
+                              </Menu>
+                            </HStack>
+                          </HStack>
+                        </CardBody>
+                      </Card>
+                    ))}
+                  </Stack>
+                  <Stack spacing="6">
+                    <Button
+                      colorScheme="red"
+                      onClick={() => {
+                        props.onSignOut();
+                        setSignInResult(null);
+                      }}
+                    >
+                      Sign out all
+                    </Button>
+                  </Stack>
+                </Stack>
+              ) : (
+                <SignInForm
+                  onSubmit={async (creds) => {
+                    const success = await props.onSignIn(
+                      creds.login,
+                      creds.password,
+                      props.snekAccessResourceId,
+                      creds.isSession
+                    );
+
+                    setSignInResult(success ? "success" : "failure");
+                  }}
+                />
+              )}
+            </>
           )}
         </Box>
       </Stack>
