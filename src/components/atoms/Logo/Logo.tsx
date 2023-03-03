@@ -1,10 +1,4 @@
-import {
-  Flex,
-  chakra,
-  FlexProps,
-  HTMLChakraProps,
-  Image,
-} from "@chakra-ui/react";
+import { Flex, FlexProps, Image } from "@chakra-ui/react";
 
 // @ts-ignore
 import snekLogoGIF from "./snek-logo.gif";

@@ -1,13 +1,13 @@
 import {
-  Stack,
-  FormControl,
-  FormLabel,
-  Input,
-  HStack,
-  Checkbox,
   Button,
+  Checkbox,
+  FormControl,
   FormErrorMessage,
+  FormLabel,
+  HStack,
+  Input,
   Link,
+  Stack,
 } from "@chakra-ui/react";
 import { Controller, useForm } from "react-hook-form";
 import { PasswordField } from "../../atoms/PasswordField";

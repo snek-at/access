@@ -1,11 +1,7 @@
 import type { HeadFC, PageProps } from "gatsby";
 import * as React from "react";
 
-import {
-  isSession,
-  setTokenPair,
-  sq,
-} from "@snek-functions/origin/client";
+import { isSession, setTokenPair, sq } from "@snek-functions/origin/client";
 
 import { Auth } from "../components/organisms/Auth/index.js";
 
