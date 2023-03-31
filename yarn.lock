@@ -3461,10 +3461,10 @@
     jsonwebtoken "^9.0.0"
     snek-query "^0.0.61"
 
-"@snek-functions/origin@*":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@snek-functions/origin/-/origin-0.2.1.tgz#632bdc5a5f44b6d012704c76f253f182a11fb47b"
-  integrity sha512-lRJKBeG/65nmpGS9+2yaGhG2hXttxBbE+6b2VhYHn/IzCSlhBqU91qszZqaNYgTfsI8A6PGw7/jWjBrDwvhQwg==
+"@snek-functions/origin@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@snek-functions/origin/-/origin-0.2.2.tgz#998666cedc256f8d36be60547673c0080fa7aca6"
+  integrity sha512-4m5NiFDgj7kRAVZbSjN0ND/RAbI6i7gngXGKtLqRfSfBZCvIHytEnby1UHgZiCZZQCqQTkePeSN0+of5UX6yRg==
   dependencies:
     "@snek-at/function" "*"
     "@snek-at/function-cli" "*"
@@ -3472,7 +3472,7 @@
     "@snek-functions/jwt" "^0.0.15"
     cors "^2.8.5"
     jsonwebtoken "^9.0.0"
-    snek-query "^0.0.62"
+    snek-query "^0.0.64"
 
 "@socket.io/component-emitter@~3.1.0":
   version "3.1.0"
@@ -15094,10 +15094,10 @@ snek-query@^0.0.61:
     rxjs "^7.8.0"
     typescript "^4.9.4"
 
-snek-query@^0.0.62:
-  version "0.0.62"
-  resolved "https://registry.yarnpkg.com/snek-query/-/snek-query-0.0.62.tgz#bc1ea1ebf9337a9157e06c6922679cb8aca06880"
-  integrity sha512-SDAaeJL241UnESdGGio6HBqLMbdO/4W5ZcwBNtCyIYLkvqX+XgETDxRUmybz0ZvBamCDZOX6jPTFB61ZhyiTVQ==
+snek-query@^0.0.64:
+  version "0.0.64"
+  resolved "https://registry.yarnpkg.com/snek-query/-/snek-query-0.0.64.tgz#b4b2554d5e7ee12057d9b7d56c5244a9a483ace1"
+  integrity sha512-1wsBbbdlVfg7JQpiG7XaTfOYCv4DOIdmnCFO13ltH9NWfHLCi6AC8P/vFo0DS4Jo79Fd5qCUfaZeYHAj7Dh6Ig==
   dependencies:
     commander "^9.4.1"
     graphql "^16.6.0"
