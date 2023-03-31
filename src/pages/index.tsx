@@ -129,7 +129,7 @@ export const useAuthHandler = () => {
   React.useEffect(() => {
     const fetchMe = async () => {
       const [r, errors] = await sq.query((q) => {
-        const users = q.userMe;
+        const users = q.userMe();
 
         return {
           users: users.map((user) => ({
