@@ -67,27 +67,16 @@ export const Page: React.FC<PageProps> = () => {
         return false;
       }}
       onSignOut={async (resourceId) => {
-        const [_, errors] = await sq.mutate((m) =>
-          m.userSignOut({
-            resourceId,
-          })
-        );
-
-        if (!errors) {
-          // remove the user from me
-          // if resourceId is not provided, remove all users
-
-          if (resourceId) {
-            setMe((me) => ({
-              ...me,
-              users: me.users.filter((u) => u.user.resource.id !== resourceId),
-            }));
-          } else {
-            setMe({ users: [] });
-          }
-
-          setTokenPair(null);
+        if (resourceId) {
+          setMe((me) => ({
+            ...me,
+            users: me.users.filter((u) => u.user.resource.id !== resourceId),
+          }));
+        } else {
+          setMe({ users: [] });
         }
+
+        setTokenPair(null);
       }}
       ongoingAuthentication={ongoingAuthentication}
     />
