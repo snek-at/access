@@ -15,8 +15,7 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "generate-origin": "yarn snek-query generate https://services.snek.at/origin/graphql --output ./src/api"
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@chakra-ui/gatsby-plugin": "^3.1.1",

@@ -3449,17 +3449,30 @@
   resolved "https://registry.yarnpkg.com/@snek-at/function/-/function-0.0.9.tgz#718f4b644db79f2c4c6da28b10114f66975a1bfa"
   integrity sha512-3O0JfOkATxZNWjPVNkY/tVMnZ+Qe8hrrurGgY9kIwOkbTI736o5FSyZiyOLxEf65L2h/6sESDqiLvoBk3UAOCg==
 
-"@snek-functions/origin@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@snek-functions/origin/-/origin-0.1.4.tgz#962f6de53a86c3a45e80261f3070c57086760975"
-  integrity sha512-Yoqu5Ss042tGb9EoevoWi4OfgLiYztXfNA2+TGyVK2M1a0v5/twFdQUWCPnvhZPS2uNWDAvpLkEIy4OQsaO5zQ==
+"@snek-functions/jwt@^0.0.15":
+  version "0.0.15"
+  resolved "https://registry.yarnpkg.com/@snek-functions/jwt/-/jwt-0.0.15.tgz#22e27089a4e894adbfb066a8549ad00d802f1bba"
+  integrity sha512-wOxRRRTtD/PcLdPYgs3M5YIjavxxkCp8ZrWNDkRnE+Ve0QobFbZ3raNRFTi03ULqCp3nE0r3rYM0o412bbRdUA==
   dependencies:
     "@snek-at/function" "*"
     "@snek-at/function-cli" "*"
     "@snek-at/function-server" "*"
     cors "^2.8.5"
     jsonwebtoken "^9.0.0"
-    snek-query "^0.0.55"
+    snek-query "^0.0.61"
+
+"@snek-functions/origin@*":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@snek-functions/origin/-/origin-0.2.1.tgz#632bdc5a5f44b6d012704c76f253f182a11fb47b"
+  integrity sha512-lRJKBeG/65nmpGS9+2yaGhG2hXttxBbE+6b2VhYHn/IzCSlhBqU91qszZqaNYgTfsI8A6PGw7/jWjBrDwvhQwg==
+  dependencies:
+    "@snek-at/function" "*"
+    "@snek-at/function-cli" "*"
+    "@snek-at/function-server" "*"
+    "@snek-functions/jwt" "^0.0.15"
+    cors "^2.8.5"
+    jsonwebtoken "^9.0.0"
+    snek-query "^0.0.62"
 
 "@socket.io/component-emitter@~3.1.0":
   version "3.1.0"
@@ -15055,10 +15068,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snek-query@^0.0.55:
-  version "0.0.55"
-  resolved "https://registry.yarnpkg.com/snek-query/-/snek-query-0.0.55.tgz#8e1856b41d373da97a858423a2b68f683902ae7a"
-  integrity sha512-Ti7tRHPMy34rlxjRD1Zp3hHoo7dMXV3avmUbRz5DGFhbodgJ0Izy8KrjgHPZYbaQhomvad6smZsk4YZdujzM9w==
+snek-query@^0.0.57:
+  version "0.0.57"
+  resolved "https://registry.yarnpkg.com/snek-query/-/snek-query-0.0.57.tgz#f4efe84c77def419ac5714225c77e23637797977"
+  integrity sha512-Zn81KX1rQuisWzBKacVucG5ot4Z2kAwFN8/kiBXgazYxfgOqPqG776azE5d6MfEdA0A+s2u2uet8RRV892jsVw==
   dependencies:
     commander "^9.4.1"
     graphql "^16.6.0"
@@ -15068,10 +15081,23 @@ snek-query@^0.0.55:
     rxjs "^7.8.0"
     typescript "^4.9.4"
 
-snek-query@^0.0.57:
-  version "0.0.57"
-  resolved "https://registry.yarnpkg.com/snek-query/-/snek-query-0.0.57.tgz#f4efe84c77def419ac5714225c77e23637797977"
-  integrity sha512-Zn81KX1rQuisWzBKacVucG5ot4Z2kAwFN8/kiBXgazYxfgOqPqG776azE5d6MfEdA0A+s2u2uet8RRV892jsVw==
+snek-query@^0.0.61:
+  version "0.0.61"
+  resolved "https://registry.yarnpkg.com/snek-query/-/snek-query-0.0.61.tgz#e7b03e11fefe261075082ef3da50f0ac6c2258b3"
+  integrity sha512-rQ9g8f1ZZhMy0IPVoKf0zj3Q6RreiEFx8QjaxTfNmLM/dPFA+SshAJyvbPfISIS7A6gParHu3paualFyBTArDg==
+  dependencies:
+    commander "^9.4.1"
+    graphql "^16.6.0"
+    lodash.clonedeep "^4.5.0"
+    pino "^8.8.0"
+    pino-pretty "^9.1.1"
+    rxjs "^7.8.0"
+    typescript "^4.9.4"
+
+snek-query@^0.0.62:
+  version "0.0.62"
+  resolved "https://registry.yarnpkg.com/snek-query/-/snek-query-0.0.62.tgz#bc1ea1ebf9337a9157e06c6922679cb8aca06880"
+  integrity sha512-SDAaeJL241UnESdGGio6HBqLMbdO/4W5ZcwBNtCyIYLkvqX+XgETDxRUmybz0ZvBamCDZOX6jPTFB61ZhyiTVQ==
   dependencies:
     commander "^9.4.1"
     graphql "^16.6.0"
