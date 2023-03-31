@@ -31,7 +31,7 @@ export const Page: React.FC<PageProps> = () => {
       me={me}
       onSignIn={async (login, password, resourceId, isSession) => {
         const [user, errors] = await sq.mutate((m) => {
-          const u = m.signIn({
+          const u = m.userSignIn({
             login,
             password,
             resourceId,
@@ -40,7 +40,7 @@ export const Page: React.FC<PageProps> = () => {
           return {
             id: u.user.id,
             username: u.user.username,
-            primaryEmail: u.user.primaryEmail,
+            primaryEmail: u.user.primaryEmailAddress,
             resource: {
               id: u.user.resource.id,
               name: u.user.resource.name,
@@ -68,7 +68,7 @@ export const Page: React.FC<PageProps> = () => {
       }}
       onSignOut={async (resourceId) => {
         const [_, errors] = await sq.mutate((m) =>
-          m.signOut({
+          m.userSignOut({
             resourceId,
           })
         );
@@ -129,17 +129,17 @@ export const useAuthHandler = () => {
   React.useEffect(() => {
     const fetchMe = async () => {
       const [r, errors] = await sq.query((q) => {
-        const m = q.me();
+        const users = q.userMe;
 
         return {
-          users: m.map((u) => ({
+          users: users.map((user) => ({
             user: {
-              id: u.user.id,
-              username: u.user.username,
-              primaryEmail: u.user.primaryEmail,
+              id: user.id,
+              username: user.username,
+              primaryEmail: user.primaryEmailAddress,
               resource: {
-                id: u.user.resource.id,
-                name: u.user.resource.name,
+                id: user.resource.id,
+                name: user.resource.name,
               },
             },
           })),
@@ -187,8 +187,8 @@ export const useAuthHandler = () => {
     if (ongoingAuthentication && isSignedIn) {
       const resourceAccess = async () => {
         const [data, errors] = await sq.mutate((m) => {
-          const access = m.resourceAccess({
-            id: ongoingAuthentication.resource.id,
+          const access = m.userSSO({
+            resourceId: ongoingAuthentication.resource.id,
           });
 
           const tokenPair = {
