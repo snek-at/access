@@ -29,7 +29,7 @@ SignedIn.args = {
         user: {
           id: "90ce0b14-fecd-478c-a612-a671797b627c",
           username: "schettn",
-          primaryEmail: "schett@snek.at",
+          primaryEmailAddress: "schett@snek.at",
           resource: {
             id: "0dfca461-e7a0-4846-bcb4-1aac2265f52c",
             name: "Ballons & Ballons",
