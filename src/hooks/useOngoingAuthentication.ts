@@ -1,4 +1,4 @@
-import { sq } from "@snek-functions/origin/client";
+import { sq } from "@snek-functions/origin";
 import { useEffect, useState } from "react";
 
 export const useOngoingAuthentication = (resourceId: string | null) => {
