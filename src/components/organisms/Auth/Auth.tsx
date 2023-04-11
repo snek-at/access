@@ -202,7 +202,7 @@ export const Auth: React.FC<AuthProps> = (props) => {
                             <HStack justifyContent={"space-between"} w="full">
                               <Stack spacing="0">
                                 <Text>
-                                  {user.username} ({user.primaryEmail})
+                                  {user.username} ({user.primaryEmailAddress})
                                 </Text>
 
                                 <Text fontSize="sm" color="muted">
