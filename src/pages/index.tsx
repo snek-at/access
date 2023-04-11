@@ -1,22 +1,18 @@
 import type { HeadFC, PageProps } from "gatsby";
 import * as React from "react";
 
-import { isSession, setTokenPair, sq } from "@snek-functions/origin/client";
+import { isSession, setTokenPair, sq } from "@snek-functions/origin";
 
 import { Auth } from "../components/organisms/Auth/index.js";
 
 interface Me {
-  users: {
-    user: {
-      id: string;
-      username: string;
-      primaryEmail: string;
-      resource: {
-        id: string;
-        name: string;
-      };
-    };
-  }[];
+  id: string;
+  username: string;
+  primaryEmailAddress: string;
+  resource: {
+    id: string;
+    name: string;
+  };
 }
 
 export const Page: React.FC<PageProps> = () => {
@@ -26,9 +22,9 @@ export const Page: React.FC<PageProps> = () => {
   return (
     <Auth
       isLoading={isLoading}
-      snekAccessResourceId="7f2734cf-9283-4568-94d1-8903354ca382"
+      snekAccessResourceId="ea579cce-6efd-4589-b6f1-f49747c876e8"
       isSignedIn={isSignedIn}
-      me={me}
+      me={me ? { users: [{ user: me }] } : { users: [] }}
       onSignIn={async (login, password, resourceId, isSession) => {
         const [user, errors] = await sq.mutate((m) => {
           const u = m.userSignIn({
@@ -40,7 +36,7 @@ export const Page: React.FC<PageProps> = () => {
           return {
             id: u.user.id,
             username: u.user.username,
-            primaryEmail: u.user.primaryEmailAddress,
+            primaryEmailAddress: u.user.primaryEmailAddress,
             resource: {
               id: u.user.resource.id,
               name: u.user.resource.name,
@@ -54,10 +50,12 @@ export const Page: React.FC<PageProps> = () => {
 
         if (!errors && user) {
           // set me without duplicating the user
-          setMe((me) => ({
-            ...me,
-            users: [...me.users.filter((u) => u.user.id !== user.id), { user }],
-          }));
+          // setMe((me) => ({
+          //   ...me,
+          //   users: [...me.users.filter((u) => u.user.id !== user.id), { user }],
+          // }));
+
+          setMe(user);
 
           setTokenPair(user.tokenPair, isSession);
 
@@ -67,13 +65,15 @@ export const Page: React.FC<PageProps> = () => {
         return false;
       }}
       onSignOut={async (resourceId) => {
+        setMe(undefined);
+
         if (resourceId) {
-          setMe((me) => ({
-            ...me,
-            users: me.users.filter((u) => u.user.resource.id !== resourceId),
-          }));
+          // setMe((me) => ({
+          //   ...me,
+          //   users: me.users.filter((u) => u.user.resource.id !== resourceId),
+          // }));
         } else {
-          setMe({ users: [] });
+          // setMe({ users: [] });
         }
 
         setTokenPair(null);
@@ -100,9 +100,7 @@ export const useAuthHandler = () => {
     }
   }, []);
 
-  const [me, setMe] = React.useState<Me>({
-    users: [],
-  });
+  const [me, setMe] = React.useState<Me>();
   const [ongoingAuthentication, setOngoingAuthentication] =
     React.useState<{
       resource: {
@@ -118,20 +116,16 @@ export const useAuthHandler = () => {
   React.useEffect(() => {
     const fetchMe = async () => {
       const [r, errors] = await sq.query((q) => {
-        const users = q.userMe();
+        const user = q.userMe;
 
         return {
-          users: users.map((user) => ({
-            user: {
-              id: user.id,
-              username: user.username,
-              primaryEmail: user.primaryEmailAddress,
-              resource: {
-                id: user.resource.id,
-                name: user.resource.name,
-              },
-            },
-          })),
+          id: user.id,
+          username: user.username,
+          primaryEmailAddress: user.primaryEmailAddress,
+          resource: {
+            id: user.resource.id,
+            name: user.resource.name,
+          },
         };
       });
 
@@ -143,7 +137,7 @@ export const useAuthHandler = () => {
     fetchMe().then(() => setIsMeLoading(false));
   }, [resourceId]);
 
-  const isSignedIn = me.users.length > 0;
+  const isSignedIn = !!me;
 
   React.useEffect(() => {
     const fetchPublicResource = async () => {

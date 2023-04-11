@@ -36,7 +36,7 @@ export interface AuthProps {
       user: {
         id: string;
         username: string;
-        primaryEmail: string;
+        primaryEmailAddress: string;
         resource: {
           id: string;
           name: string;
